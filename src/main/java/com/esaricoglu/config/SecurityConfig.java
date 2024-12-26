@@ -15,8 +15,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private static final String AUTHENTICATE = "/authenticate";
     private static final String LOGIN = "/login";
+    private static final String REGISTER = "/register";
 
     @Autowired
     private AuthenticationProvider authenticationProvider;
@@ -28,7 +28,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers(AUTHENTICATE, LOGIN)
+                        request.requestMatchers(LOGIN, REGISTER)
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
