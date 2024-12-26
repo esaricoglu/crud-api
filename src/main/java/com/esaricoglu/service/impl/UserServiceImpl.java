@@ -2,6 +2,9 @@ package com.esaricoglu.service.impl;
 
 import com.esaricoglu.dto.DtoUser;
 import com.esaricoglu.dto.DtoUserIU;
+import com.esaricoglu.exception.BaseException;
+import com.esaricoglu.exception.ErrorMessage;
+import com.esaricoglu.exception.MessageType;
 import com.esaricoglu.model.User;
 import com.esaricoglu.repository.UserRepository;
 import com.esaricoglu.service.IUserService;
@@ -48,8 +51,8 @@ public class UserServiceImpl implements IUserService {
     public DtoUser update(Long id, DtoUserIU dtoUserIU) {
         Optional<User> optional = userRepository.findById(id);
         // Exception handling
-        if (optional.isEmpty()){
-            throw new EntityNotFoundException("User not found");
+        if (optional.isEmpty()) {
+            throw new BaseException(new ErrorMessage(MessageType.NO_RECORD_EXIST, id.toString()));
         }
         User user = optional.get();
         dtoUserIU.setPassword(bCryptPasswordEncoder.encode(dtoUserIU.getPassword()));
