@@ -8,5 +8,5 @@ public interface IAuthService {
 
     DtoUser register(AuthRequest request);
 
-    AuthResponse authenticate(AuthRequest request);
+    AuthResponse login(AuthRequest request);
 }

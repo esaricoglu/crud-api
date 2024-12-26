@@ -43,7 +43,7 @@ public class AuthServiceImpl implements IAuthService {
     }
 
     @Override
-    public AuthResponse authenticate(AuthRequest request) {
+    public AuthResponse login(AuthRequest request) {
         try {
             UsernamePasswordAuthenticationToken auth =
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());

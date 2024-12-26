@@ -25,7 +25,7 @@ public class AuthControllerImpl implements IAuthController {
 
     @Override
     @PostMapping("/login")
-    public AuthResponse authenticate(@Valid @RequestBody AuthRequest request) {
-        return authService.authenticate(request);
+    public AuthResponse login(@Valid @RequestBody AuthRequest request) {
+        return authService.login(request);
     }
 }
