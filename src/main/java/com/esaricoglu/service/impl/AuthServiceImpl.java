@@ -1,6 +1,9 @@
 package com.esaricoglu.service.impl;
 
 import com.esaricoglu.dto.DtoUser;
+import com.esaricoglu.exception.BaseException;
+import com.esaricoglu.exception.ErrorMessage;
+import com.esaricoglu.exception.MessageType;
 import com.esaricoglu.jwt.AuthRequest;
 import com.esaricoglu.jwt.AuthResponse;
 import com.esaricoglu.jwt.JwtService;
@@ -13,6 +16,8 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AuthServiceImpl implements IAuthService {
@@ -49,16 +54,13 @@ public class AuthServiceImpl implements IAuthService {
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
             authenticationProvider.authenticate(auth);
 
-            //Exception Handling
-            User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+            Optional<User> optional = userRepository.findByUsername(request.getUsername());
 
-            String token = jwtService.generateToken(user);
+            String token = jwtService.generateToken(optional.get());
 
             return new AuthResponse(token);
         } catch (Exception e) {
-            //Exception handling
-            System.out.println("Username or password is incorrect" + e.getMessage());
+            throw new BaseException(new ErrorMessage(MessageType.INVALID_CREDENTIALS));
         }
-        return null;
     }
 }

@@ -19,6 +19,10 @@ public class ErrorMessage {
 
     public ErrorMessage(){}
 
+    public ErrorMessage(MessageType messageType){
+        this.messageType = messageType;
+    }
+
     public ErrorMessage(MessageType messageType, String ofStatic) {
         this.messageType = messageType;
         this.ofStatic = ofStatic;

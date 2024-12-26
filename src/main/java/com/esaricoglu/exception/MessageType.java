@@ -2,8 +2,8 @@ package com.esaricoglu.exception;
 
 public enum MessageType {
 
-    NO_RECORD_EXIST("1001","Record not found"),
-    GENERAL_EXCEPTION("9999","General Exception");
+    USER_NOT_FOUND("1001","User not found"),
+    INVALID_CREDENTIALS("1002","Username or password is incorrect"),;
 
     private String code;
 

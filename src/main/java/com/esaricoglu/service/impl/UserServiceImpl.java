@@ -42,17 +42,19 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void deleteById(Long id) {
-        // Exception handling
-        User user = userRepository.findById(id).orElseThrow();
-        userRepository.delete(user);
+        Optional<User> optional = userRepository.findById(id);
+        if (optional.isEmpty()) {
+            throw new BaseException(new ErrorMessage(MessageType.USER_NOT_FOUND,id.toString()));
+        }
+        userRepository.delete(optional.get());
     }
 
     @Override
     public DtoUser update(Long id, DtoUserIU dtoUserIU) {
         Optional<User> optional = userRepository.findById(id);
-        // Exception handling
+
         if (optional.isEmpty()) {
-            throw new BaseException(new ErrorMessage(MessageType.NO_RECORD_EXIST, id.toString()));
+            throw new BaseException(new ErrorMessage(MessageType.USER_NOT_FOUND, id.toString()));
         }
         User user = optional.get();
         dtoUserIU.setPassword(bCryptPasswordEncoder.encode(dtoUserIU.getPassword()));
