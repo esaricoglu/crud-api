@@ -1,9 +1,13 @@
 package com.esaricoglu.exception;
 
+import org.springframework.http.HttpStatus;
+
 public enum MessageType {
 
     USER_NOT_FOUND("1001","User not found"),
-    INVALID_CREDENTIALS("1002","Username or password is incorrect"),;
+    INVALID_CREDENTIALS("1002","Username or password is incorrect"),
+    VALIDATION_ERROR("1003","Validation error"),
+    USERNAME_ALREADY_EXISTS("1004","Username already exists");
 
     private String code;
 

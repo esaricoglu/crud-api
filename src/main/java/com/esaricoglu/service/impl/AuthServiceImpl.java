@@ -39,7 +39,9 @@ public class AuthServiceImpl implements IAuthService {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
-
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new BaseException(new ErrorMessage(MessageType.USERNAME_ALREADY_EXISTS, request.getUsername()));
+        }
         User savedUser = userRepository.save(user);
 
         DtoUser dtoUser = new DtoUser();

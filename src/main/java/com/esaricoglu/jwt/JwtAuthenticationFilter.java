@@ -1,6 +1,10 @@
 package com.esaricoglu.jwt;
 
+import com.esaricoglu.exception.BaseException;
+import com.esaricoglu.exception.ErrorMessage;
+import com.esaricoglu.exception.MessageType;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
 
@@ -26,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+            throws ServletException, IOException, BaseException {
 
         String header;
         String token;
@@ -54,10 +59,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
-        } catch (ExpiredJwtException ex) {
-            System.out.println("JWT token expired" + ex.getMessage());
-        } catch (Exception ex) {
-            System.out.println("General exception" + ex.getMessage());
+        } catch (ExpiredJwtException e) {
+            System.out.println("Expired JWT : " + e.getMessage());
+        } catch (JwtException e) {
+            System.out.println("Invalid JWT : " + e.getMessage());
+        } catch (Exception e){
+            System.out.println("Exception : " + e.getMessage());
         }
         filterChain.doFilter(request, response);
     }
