@@ -29,12 +29,6 @@ This API allows users to register, log in, and perform CRUD operations on user a
    cd crud-api
    ```
 
-2. **Build the Jar File:**
-
-   ```bash
-   mvn clean package -DskipTests
-   ```
-
 ### 2. Running PostgreSQL Database in Docker
 
 1. Start PostgreSQL and the Spring Boot application using Docker Compose:
@@ -70,7 +64,7 @@ You can test the API using Postman or cURL. Below are some examples:
 
 ### 1. User Registration
 
-- **Endpoint:** `/register`
+- **Endpoint:** `http://localhost:8080/register`
 - **Method:** `POST`
 - **Request Body:**
   ```json
@@ -89,7 +83,7 @@ You can test the API using Postman or cURL. Below are some examples:
 
 ### 2. Login
 
-- **Endpoint:** `/login`
+- **Endpoint:** `http://localhost:8080/login`
 - **Method:** `POST`
 - **Request Body:**
   ```json
@@ -107,21 +101,21 @@ You can test the API using Postman or cURL. Below are some examples:
 
 ### 3. List Users
 
-- **Endpoint:** `/users`
+- **Endpoint:** `http://localhost:8080/users`
 - **Method:** `GET`
 - **Authorization:** Bearer Token required.
 - **Response:** Returns a list of users.
 
 ### 4. Delete User
 
-- **Endpoint:** `/users/{id}`
+- **Endpoint:** `http://localhost:8080/users/{id}`
 - **Method:** `DELETE`
 - **Authorization:** Bearer Token required.
 - **Response:** No content.
 
 ### 5. Update User
 
-- **Endpoint:** `/users/{id}`
+- **Endpoint:** `http://localhost:8080/users/{id}`
 - **Method:** `PUT`
 - **Request Body:**
   ```json
